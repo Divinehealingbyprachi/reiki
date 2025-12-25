@@ -1,0 +1,393 @@
+import React, { useState, useEffect } from 'react';
+import { 
+  Menu, 
+  X, 
+  Instagram, 
+  Youtube, 
+  Mail, 
+  Phone, 
+  MessageCircle, 
+  Sparkles, 
+  Heart, 
+  Sun, 
+  BookOpen, 
+  Leaf,
+  ChevronRight,
+  Star
+} from 'lucide-react';
+
+const App = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [logoError, setLogoError] = useState(false);
+
+  // Handle scroll effect for navbar transparency/solid background
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+
+  // Contact Links
+  const whatsappLink = "https://wa.me/919137543969?text=Namaste%20Prachi,%20I%20would%20like%20to%20book%20a%20Reiki%20session%20or%20inquire%20about%20courses.";
+  const emailLink = "mailto:prachivijay26@gmail.com";
+  const instagramLink = "https://www.instagram.com/prachivvreikimaster888?igsh=ZTR0dzZneGVyNW1l";
+  const youtubeLink = "https://youtube.com/@prachivvreikimaster888?si=PqL6cXo2VLtGNJcq";
+
+  const courses = [
+    { level: "Level 1", title: "Shoden (The Entrance)", desc: "Discover self-healing basics, the history of Reiki, and hand positions to channel energy." },
+    { level: "Level 2", title: "Okuden (The Deepening)", desc: "Learn the sacred symbols to practice distance healing and mental/emotional balancing." },
+    { level: "Level 3", title: "Shinpiden (Master)", desc: "Attain the Master Practitioner level with advanced techniques for deeper spiritual connection." },
+    { level: "Level 4", title: "Grand Master", desc: "Unlock higher frequency energies and advanced attunements for profound transformation." },
+    { level: "Level 5", title: "Teacher Training", desc: "Become a certified teacher. Learn to pass attunements and guide others on their path." },
+  ];
+
+  return (
+    <div className="font-sans text-slate-600 bg-stone-50 min-h-screen flex flex-col selection:bg-purple-200 selection:text-purple-900">
+      
+      {/* Navigation - High Contrast & Legibility */}
+      <nav 
+        className={`fixed w-full z-50 transition-all duration-500 ease-in-out ${
+          scrolled ? 'bg-white shadow-lg py-3' : 'bg-white/80 backdrop-blur-md py-5'
+        }`}
+      >
+        <div className="container mx-auto px-6 md:px-12 flex justify-between items-center">
+          
+          {/* Logo Section - Brand Identity */}
+          <div className="flex items-center gap-4 group cursor-pointer">
+            <div className="relative">
+               {logoError ? (
+                  <div className="w-14 h-14 bg-purple-100 rounded-full flex items-center justify-center border-2 border-purple-200">
+                    <Sun className="text-purple-600 w-8 h-8" />
+                  </div>
+                ) : (
+                  <img 
+                    src="divine healing by prachi logo.jpg" 
+                    alt="Divine Healing Logo" 
+                    className="w-14 h-14 rounded-full object-cover shadow-md border-2 border-white ring-2 ring-purple-100 transition-transform duration-300 group-hover:scale-105"
+                    onError={() => setLogoError(true)}
+                  />
+                )}
+            </div>
+            <div className="flex flex-col">
+              <h1 className="text-xl md:text-2xl font-serif font-bold text-slate-800 tracking-tight leading-none group-hover:text-purple-700 transition-colors">
+                Divine Healing
+              </h1>
+              <span className="text-xs font-medium text-purple-600 tracking-[0.2em] uppercase mt-1">
+                By Prachi
+              </span>
+            </div>
+          </div>
+
+          {/* Desktop Navigation - Clean Typography */}
+          <div className="hidden lg:flex items-center gap-10">
+            <a href="#about" className="text-sm font-semibold uppercase tracking-wider text-slate-500 hover:text-purple-700 transition-colors relative after:content-[''] after:absolute after:w-0 after:h-0.5 after:bg-purple-600 after:left-0 after:-bottom-1 after:transition-all hover:after:w-full">
+              About
+            </a>
+            <a href="#courses" className="text-sm font-semibold uppercase tracking-wider text-slate-500 hover:text-purple-700 transition-colors relative after:content-[''] after:absolute after:w-0 after:h-0.5 after:bg-purple-600 after:left-0 after:-bottom-1 after:transition-all hover:after:w-full">
+              Courses
+            </a>
+            <a href="#contact" className="text-sm font-semibold uppercase tracking-wider text-slate-500 hover:text-purple-700 transition-colors relative after:content-[''] after:absolute after:w-0 after:h-0.5 after:bg-purple-600 after:left-0 after:-bottom-1 after:transition-all hover:after:w-full">
+              Contact
+            </a>
+            <a 
+              href={whatsappLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-purple-700 hover:bg-purple-800 text-white px-8 py-3 rounded-full transition-all shadow-lg hover:shadow-purple-200 transform hover:-translate-y-0.5 flex items-center gap-2 text-sm font-semibold tracking-wide"
+            >
+              <MessageCircle size={18} /> Book Session
+            </a>
+          </div>
+
+          {/* Mobile Menu Button */}
+          <button onClick={toggleMenu} className="lg:hidden text-slate-800 hover:text-purple-700 transition-colors p-2">
+            {isMenuOpen ? <X size={32} /> : <Menu size={32} />}
+          </button>
+        </div>
+
+        {/* Mobile Dropdown - Full Screen Overlay feel */}
+        {isMenuOpen && (
+          <div className="lg:hidden bg-white border-t border-slate-100 absolute w-full shadow-2xl animate-fade-in-down">
+            <div className="flex flex-col p-6 space-y-6 text-center">
+              <a href="#about" onClick={toggleMenu} className="text-lg font-serif text-slate-800 hover:text-purple-600">About Reiki</a>
+              <a href="#courses" onClick={toggleMenu} className="text-lg font-serif text-slate-800 hover:text-purple-600">Courses</a>
+              <a href="#contact" onClick={toggleMenu} className="text-lg font-serif text-slate-800 hover:text-purple-600">Contact</a>
+              <a href={whatsappLink} className="bg-green-600 text-white py-4 rounded-xl flex justify-center items-center gap-2 shadow-lg active:scale-95 transition-transform">
+                <MessageCircle size={22} /> Chat on WhatsApp
+              </a>
+            </div>
+          </div>
+        )}
+      </nav>
+
+      {/* Hero Section - Balanced Composition */}
+      <header className="relative pt-40 pb-24 lg:pt-52 lg:pb-40 px-6 overflow-hidden bg-gradient-to-b from-purple-50 via-white to-stone-50">
+        {/* Organic Background Shapes */}
+        <div className="absolute top-0 right-0 -mr-32 -mt-32 w-[500px] h-[500px] bg-purple-100 rounded-full blur-[100px] opacity-60 z-0 animate-pulse-slow"></div>
+        <div className="absolute bottom-0 left-0 -ml-32 -mb-32 w-[400px] h-[400px] bg-yellow-100 rounded-full blur-[80px] opacity-60 z-0"></div>
+
+        <div className="container mx-auto text-center relative z-10 max-w-5xl">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-purple-100 shadow-sm mb-8 animate-fade-in-up">
+            <Sparkles className="w-4 h-4 text-yellow-500" />
+            <span className="text-xs font-bold tracking-widest text-purple-800 uppercase">Welcome to Divine Healing</span>
+          </div>
+          
+          <h1 className="text-5xl md:text-7xl font-serif font-bold text-slate-900 mb-8 leading-[1.1] tracking-tight">
+            Heal Yourself. Heal Others.<br />
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-indigo-600 italic font-medium pr-2">
+              Heal the World.
+            </span>
+          </h1>
+          
+          <p className="text-lg md:text-2xl text-slate-500 max-w-3xl mx-auto mb-12 leading-relaxed font-light">
+            Reconnect with the <span className="font-semibold text-slate-700">universal life force</span>. Awaken your inner awareness and create harmony, peace, and wellbeing in your everyday life.
+          </p>
+          
+          <div className="flex flex-col sm:flex-row justify-center gap-5">
+            <a 
+              href={whatsappLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-green-600 hover:bg-green-700 text-white text-lg px-10 py-4 rounded-full shadow-xl hover:shadow-2xl hover:shadow-green-200 transition-all transform hover:-translate-y-1 flex items-center justify-center gap-3 font-medium"
+            >
+              <MessageCircle className="w-6 h-6" /> 
+              Start Your Journey
+            </a>
+            <a 
+              href="#courses"
+              className="bg-white hover:bg-gray-50 text-slate-700 border border-slate-200 text-lg px-10 py-4 rounded-full shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1 font-medium"
+            >
+              View Courses
+            </a>
+          </div>
+        </div>
+      </header>
+
+      {/* About Section - Asymmetrical Layout for Interest */}
+      <section id="about" className="py-24 bg-white relative">
+        <div className="container mx-auto px-6 md:px-12">
+          <div className="flex flex-col md:flex-row items-center gap-16 lg:gap-24">
+            
+            <div className="md:w-1/2 relative">
+              <div className="absolute inset-0 bg-gradient-to-br from-purple-200 to-indigo-200 rounded-[2rem] transform rotate-3 scale-95 opacity-50 blur-sm"></div>
+              <div className="relative bg-stone-50 rounded-[2rem] p-12 shadow-2xl border border-white flex flex-col items-center justify-center aspect-square md:aspect-[4/5] overflow-hidden">
+                   <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-purple-500 to-indigo-500"></div>
+                   <Sun className="w-24 h-24 text-purple-400 mb-6 opacity-80" />
+                   <h3 className="font-serif text-3xl text-slate-800 mb-2 text-center">Reiki</h3>
+                   <p className="text-purple-600 uppercase tracking-widest text-sm font-bold">Universal Life Energy</p>
+              </div>
+            </div>
+
+            <div className="md:w-1/2 space-y-8">
+              <div className="inline-block border-l-4 border-purple-500 pl-4">
+                <h2 className="text-4xl lg:text-5xl font-serif font-bold text-slate-900 leading-tight">
+                  Restore Balance <br/>
+                  <span className="text-purple-600">& Inner Peace</span>
+                </h2>
+              </div>
+              
+              <p className="text-lg text-slate-600 leading-loose">
+                Reiki is a gentle yet powerful healing modality that works on the body, mind, emotions, and soul. It helps restore balance, remove energy blockages, reduce stress, and promote deep inner healing.
+              </p>
+              
+              <p className="text-lg text-slate-600 leading-loose">
+                It is not a religion and requires no special belief—only an open heart. Anyone can learn to become a channel of healing for themselves and others.
+              </p>
+              
+              <div className="pt-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {[
+                  "Remove Energy Blockages", 
+                  "Reduce Stress & Anxiety", 
+                  "Emotional Healing", 
+                  "Spiritual Growth"
+                ].map((item, i) => (
+                  <div key={i} className="flex items-center gap-3 text-slate-700 font-medium bg-purple-50 p-3 rounded-lg">
+                    <Heart className="w-5 h-5 text-purple-500 fill-current" />
+                    <span>{item}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* Courses Section - Grid Layout with Card Design */}
+      <section id="courses" className="py-24 bg-stone-50">
+        <div className="container mx-auto px-6 md:px-12">
+          <div className="text-center mb-20 max-w-3xl mx-auto">
+            <h2 className="text-4xl lg:text-5xl font-serif font-bold text-slate-900 mb-6">Learning Path</h2>
+            <div className="w-24 h-1 bg-purple-500 mx-auto rounded-full mb-6"></div>
+            <p className="text-xl text-slate-500 leading-relaxed">
+              From beginner to Master Teacher, our structured curriculum ensures a deep and authentic connection to the lineage of Reiki.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {courses.map((course, index) => (
+              <div key={index} className="group bg-white p-8 rounded-2xl shadow-sm hover:shadow-2xl transition-all duration-300 border border-slate-100 hover:border-purple-100 relative overflow-hidden">
+                <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                  <Star className="w-24 h-24 text-purple-900 transform rotate-12" />
+                </div>
+                
+                <div className="w-14 h-14 bg-purple-100 rounded-2xl flex items-center justify-center mb-8 group-hover:bg-purple-600 transition-colors duration-300">
+                  <BookOpen className="text-purple-600 w-7 h-7 group-hover:text-white transition-colors" />
+                </div>
+                
+                <h3 className="text-2xl font-serif font-bold text-slate-800 mb-2">{course.level}</h3>
+                <h4 className="text-purple-700 font-bold uppercase text-xs tracking-wider mb-4">{course.title}</h4>
+                <p className="text-slate-600 leading-relaxed mb-6">{course.desc}</p>
+                
+                <a href={whatsappLink} className="inline-flex items-center text-purple-700 font-bold hover:text-purple-900 transition-colors">
+                  Learn more <ChevronRight size={16} className="ml-1" />
+                </a>
+              </div>
+            ))}
+            
+            {/* CTA Card - Distinctive Design */}
+            <div className="bg-gradient-to-br from-purple-800 to-indigo-900 p-8 rounded-2xl shadow-xl flex flex-col items-center justify-center text-center text-white relative overflow-hidden">
+              <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10"></div>
+              <Leaf className="w-12 h-12 mb-6 text-yellow-400" />
+              <h3 className="text-2xl font-serif font-bold mb-3">Begin Your Practice</h3>
+              <p className="text-purple-200 mb-8 leading-relaxed">Classes are available online and offline. Schedule a consultation to find the right level for you.</p>
+              <a 
+                href={whatsappLink}
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="bg-white text-purple-900 px-8 py-3 rounded-full font-bold hover:bg-yellow-50 transition-colors shadow-lg w-full md:w-auto"
+              >
+                Inquire Now
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Social Proof - Minimalist */}
+      <section className="py-24 bg-white border-t border-slate-100">
+        <div className="container mx-auto px-6 text-center">
+          <h2 className="text-3xl font-serif font-bold mb-12 text-slate-900">Join Our Community</h2>
+          <div className="flex flex-col md:flex-row justify-center gap-8 max-w-4xl mx-auto">
+            <a 
+              href={youtubeLink}
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="flex-1 group flex items-center gap-5 p-6 border border-slate-200 rounded-2xl hover:border-red-500 hover:shadow-xl hover:shadow-red-50 transition-all cursor-pointer bg-slate-50 hover:bg-white"
+            >
+              <div className="bg-white p-4 rounded-full shadow-sm group-hover:bg-red-500 transition-colors">
+                <Youtube className="text-red-600 w-8 h-8 group-hover:text-white transition-colors" />
+              </div>
+              <div className="text-left">
+                <h3 className="font-bold text-lg text-slate-800 group-hover:text-red-600 transition-colors">YouTube Channel</h3>
+                <p className="text-sm text-slate-500">Subscribe for guided healing</p>
+              </div>
+            </a>
+
+            <a 
+              href={instagramLink}
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="flex-1 group flex items-center gap-5 p-6 border border-slate-200 rounded-2xl hover:border-pink-500 hover:shadow-xl hover:shadow-pink-50 transition-all cursor-pointer bg-slate-50 hover:bg-white"
+            >
+              <div className="bg-white p-4 rounded-full shadow-sm group-hover:bg-pink-500 transition-colors">
+                <Instagram className="text-pink-600 w-8 h-8 group-hover:text-white transition-colors" />
+              </div>
+              <div className="text-left">
+                <h3 className="font-bold text-lg text-slate-800 group-hover:text-pink-600 transition-colors">Instagram</h3>
+                <p className="text-sm text-slate-500">Daily inspiration & updates</p>
+              </div>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer - Dark Theme for grounding */}
+      <footer id="contact" className="bg-slate-900 text-slate-300 pt-24 pb-12">
+        <div className="container mx-auto px-6 md:px-12">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16 border-b border-slate-800 pb-12">
+            
+            {/* Brand */}
+            <div className="lg:col-span-1">
+              <div className="flex items-center gap-3 mb-6">
+                 {/* Footer Logo */}
+                 {logoError ? (
+                  <Sun className="text-yellow-500 w-8 h-8" />
+                ) : (
+                  <img 
+                    src="divine healing by prachi logo.jpg" 
+                    alt="Divine Healing Logo" 
+                    className="w-10 h-10 rounded-full object-cover border-2 border-slate-700"
+                    onError={() => setLogoError(true)}
+                  />
+                )}
+                <h2 className="text-xl font-serif font-bold text-white">Divine Healing</h2>
+              </div>
+              <p className="text-sm leading-relaxed text-slate-400">
+                Empowering souls to find their inner light through the ancient wisdom of Reiki.
+              </p>
+            </div>
+
+            {/* Links */}
+            <div>
+              <h3 className="text-white font-bold mb-6 tracking-wide">Explore</h3>
+              <ul className="space-y-3 text-sm">
+                <li><a href="#about" className="hover:text-purple-400 transition-colors">About Us</a></li>
+                <li><a href="#courses" className="hover:text-purple-400 transition-colors">Courses</a></li>
+                <li><a href={youtubeLink} className="hover:text-purple-400 transition-colors">Videos</a></li>
+              </ul>
+            </div>
+
+            {/* Contact */}
+            <div>
+              <h3 className="text-white font-bold mb-6 tracking-wide">Contact</h3>
+              <ul className="space-y-4 text-sm">
+                <li>
+                  <a href={`tel:+919137543969`} className="flex items-center gap-3 hover:text-white transition-colors">
+                    <Phone size={16} className="text-purple-500" /> +91 91375 43969
+                  </a>
+                </li>
+                <li>
+                  <a href={emailLink} className="flex items-center gap-3 hover:text-white transition-colors">
+                    <Mail size={16} className="text-purple-500" /> prachivijay26@gmail.com
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+             {/* CTA */}
+             <div>
+              <h3 className="text-white font-bold mb-6 tracking-wide">Book Now</h3>
+              <a 
+                href={whatsappLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex w-full items-center justify-center gap-2 bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg transition-colors font-medium"
+              >
+                <MessageCircle size={18} />
+                WhatsApp Chat
+              </a>
+            </div>
+
+          </div>
+
+          <div className="flex flex-col md:flex-row justify-between items-center text-xs text-slate-500">
+            <p>&copy; {new Date().getFullYear()} Divine Healing by Prachi. All rights reserved.</p>
+            <div className="flex gap-4 mt-4 md:mt-0">
+              <a href="#" className="hover:text-slate-300 transition-colors">Privacy Policy</a>
+              <a href="#" className="hover:text-slate-300 transition-colors">Terms of Service</a>
+            </div>
+          </div>
+        </div>
+      </footer>
+
+    </div>
+  );
+};
+
+export default App;
