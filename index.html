@@ -1,393 +1,609 @@
-import React, { useState, useEffect } from 'react';
-import { 
-  Menu, 
-  X, 
-  Instagram, 
-  Youtube, 
-  Mail, 
-  Phone, 
-  MessageCircle, 
-  Sparkles, 
-  Heart, 
-  Sun, 
-  BookOpen, 
-  Leaf,
-  ChevronRight,
-  Star
-} from 'lucide-react';
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Divine Healing by Prachi | Reiki Master</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Icons (FontAwesome) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-const App = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-  const [logoError, setLogoError] = useState(false);
+    <style>
+        /* --- CSS Variables --- */
+        :root {
+            /* Palette: Deep Royal Purple, Gold, White */
+            --primary: #4A2C68; 
+            --primary-dark: #2a163d;
+            --gold: #D4AF37;
+            --gold-hover: #b5932a;
+            --text-dark: #1A1A1A;
+            --text-gray: #4A4A4A;
+            --bg-light: #FDFBF7;
+            --bg-white: #ffffff;
+            --section-bg: #F4F0F8;
+            --shadow-sm: 0 4px 6px rgba(0,0,0,0.05);
+            --shadow-lg: 0 20px 40px rgba(74, 44, 104, 0.1);
+            --container: 1140px;
+        }
 
-  // Handle scroll effect for navbar transparency/solid background
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+        /* --- Global Reset --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
 
-  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
 
-  // Contact Links
-  const whatsappLink = "https://wa.me/919137543969?text=Namaste%20Prachi,%20I%20would%20like%20to%20book%20a%20Reiki%20session%20or%20inquire%20about%20courses.";
-  const emailLink = "mailto:prachivijay26@gmail.com";
-  const instagramLink = "https://www.instagram.com/prachivvreikimaster888?igsh=ZTR0dzZneGVyNW1l";
-  const youtubeLink = "https://youtube.com/@prachivvreikimaster888?si=PqL6cXo2VLtGNJcq";
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+            color: var(--primary);
+            line-height: 1.2;
+            margin-bottom: 1rem;
+        }
 
-  const courses = [
-    { level: "Level 1", title: "Shoden (The Entrance)", desc: "Discover self-healing basics, the history of Reiki, and hand positions to channel energy." },
-    { level: "Level 2", title: "Okuden (The Deepening)", desc: "Learn the sacred symbols to practice distance healing and mental/emotional balancing." },
-    { level: "Level 3", title: "Shinpiden (Master)", desc: "Attain the Master Practitioner level with advanced techniques for deeper spiritual connection." },
-    { level: "Level 4", title: "Grand Master", desc: "Unlock higher frequency energies and advanced attunements for profound transformation." },
-    { level: "Level 5", title: "Teacher Training", desc: "Become a certified teacher. Learn to pass attunements and guide others on their path." },
-  ];
+        h1 { font-size: 3.5rem; font-weight: 700; }
+        h2 { font-size: 2.5rem; font-weight: 600; }
+        p { margin-bottom: 1.5rem; color: var(--text-gray); font-size: 1.1rem; }
+        
+        img { max-width: 100%; height: auto; display: block; }
+        a { text-decoration: none; transition: all 0.3s ease; }
 
-  return (
-    <div className="font-sans text-slate-600 bg-stone-50 min-h-screen flex flex-col selection:bg-purple-200 selection:text-purple-900">
-      
-      {/* Navigation - High Contrast & Legibility */}
-      <nav 
-        className={`fixed w-full z-50 transition-all duration-500 ease-in-out ${
-          scrolled ? 'bg-white shadow-lg py-3' : 'bg-white/80 backdrop-blur-md py-5'
-        }`}
-      >
-        <div className="container mx-auto px-6 md:px-12 flex justify-between items-center">
-          
-          {/* Logo Section - Brand Identity */}
-          <div className="flex items-center gap-4 group cursor-pointer">
-            <div className="relative">
-               {logoError ? (
-                  <div className="w-14 h-14 bg-purple-100 rounded-full flex items-center justify-center border-2 border-purple-200">
-                    <Sun className="text-purple-600 w-8 h-8" />
-                  </div>
-                ) : (
-                  <img 
-                    src="divine healing by prachi logo.jpg" 
-                    alt="Divine Healing Logo" 
-                    className="w-14 h-14 rounded-full object-cover shadow-md border-2 border-white ring-2 ring-purple-100 transition-transform duration-300 group-hover:scale-105"
-                    onError={() => setLogoError(true)}
-                  />
-                )}
+        /* --- Utility Classes --- */
+        .container { max-width: var(--container); margin: 0 auto; padding: 0 20px; }
+        .text-center { text-align: center; }
+        .section-padding { padding: 80px 0; }
+        .bg-white { background-color: var(--bg-white); }
+        .bg-section { background-color: var(--section-bg); }
+        
+        .highlight-gold { color: var(--gold); font-style: italic; }
+
+        /* --- Buttons --- */
+        .btn {
+            display: inline-flex; align-items: center; justify-content: center;
+            padding: 16px 40px; border-radius: 8px; /* Sharper corners for modern look */
+            font-weight: 700; font-size: 1rem; text-transform: uppercase; letter-spacing: 0.5px;
+            cursor: pointer; transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .btn-primary {
+            background-color: var(--primary); color: white; border: 2px solid var(--primary);
+        }
+        .btn-primary:hover {
+            background-color: var(--primary-dark); border-color: var(--primary-dark); transform: translateY(-2px);
+        }
+
+        .btn-gold {
+            background: linear-gradient(135deg, var(--gold), #cfaa48);
+            color: white; border: none;
+        }
+        .btn-gold:hover {
+            transform: translateY(-2px); box-shadow: 0 10px 20px rgba(212, 175, 55, 0.3);
+        }
+        
+        .btn-whatsapp-fixed {
+            position: fixed; bottom: 30px; right: 30px;
+            background: #25D366; color: white; width: 60px; height: 60px;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-size: 30px; z-index: 100; box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        }
+        .btn-whatsapp-fixed:hover { transform: scale(1.1); }
+
+        /* --- Navigation --- */
+        nav {
+            background: var(--bg-white); padding: 15px 0; position: sticky; top: 0; z-index: 50;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        .nav-inner { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700; color: var(--primary); display: flex; align-items: center; gap: 10px; }
+        .nav-links { display: flex; gap: 30px; align-items: center; }
+        .nav-links a { color: var(--text-dark); font-weight: 500; font-size: 0.95rem; }
+        .nav-links a:hover { color: var(--gold); }
+        .mobile-menu-btn { display: none; font-size: 1.5rem; color: var(--primary); }
+
+        /* Added Social Icons in Nav */
+        .nav-socials { display: flex; gap: 15px; margin-right: 20px; align-items: center; }
+        .nav-socials a { color: var(--primary); font-size: 1.3rem; transition: 0.3s; }
+        .nav-socials a:hover { color: var(--gold); }
+
+        /* --- Hero Section (Split Layout) --- */
+        .hero {
+            padding: 80px 0;
+            background: linear-gradient(to right, #FBF8FF 60%, #fff 60%);
+            position: relative; overflow: hidden;
+        }
+        .hero-grid {
+            display: grid; grid-template-columns: 1.2fr 1fr; gap: 60px; align-items: center;
+        }
+        .hero-text h1 { color: var(--primary-dark); margin-bottom: 20px; }
+        .hero-subtitle {
+            font-size: 1.25rem; color: var(--text-gray); margin-bottom: 30px; border-left: 4px solid var(--gold); padding-left: 20px;
+        }
+        
+        .hero-image-container { position: relative; }
+        .hero-image {
+            width: 100%; border-radius: 20px; box-shadow: var(--shadow-lg);
+            position: relative; z-index: 2;
+        }
+        .hero-pattern {
+            position: absolute; top: -30px; right: -30px; width: 100%; height: 100%;
+            border: 2px solid var(--gold); border-radius: 20px; z-index: 1;
+        }
+        
+        .stats-bar {
+            display: flex; gap: 40px; margin-top: 40px; border-top: 1px solid #eee; padding-top: 30px;
+        }
+        .stat-item h4 { font-size: 1.5rem; margin-bottom: 0; color: var(--gold); }
+        .stat-item span { font-size: 0.9rem; font-weight: 600; text-transform: uppercase; color: var(--text-gray); }
+
+        /* --- Problems / Pain Points --- */
+        .pain-grid {
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-top: 50px;
+        }
+        .pain-card {
+            background: var(--bg-white); padding: 40px 30px; border-radius: 12px;
+            box-shadow: var(--shadow-sm); border-top: 4px solid #ddd; transition: 0.3s;
+        }
+        .pain-card:hover { border-color: var(--primary); transform: translateY(-5px); }
+        .pain-icon { font-size: 2rem; color: var(--text-gray); margin-bottom: 20px; }
+
+        /* --- Video Section --- */
+        .video-section-grid {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center;
+        }
+        .video-container {
+            position: relative;
+            width: 100%;
+            height: 500px; /* Good height for shorts */
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+            background: #000;
+            display: flex;
+            justify-content: center;
+        }
+        .video-container iframe {
+            height: 100%;
+            width: 100%;
+            max-width: 315px; /* Aspect ratio for Shorts */
+        }
+
+        /* --- Authority / About --- */
+        .about-grid {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
+        }
+        .about-img {
+            border-radius: 12px; box-shadow: var(--shadow-lg); height: 500px; object-fit: cover; width: 100%;
+        }
+
+        /* --- Offerings --- */
+        .offer-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px;
+        }
+        .offer-card {
+            background: var(--bg-white); border-radius: 16px; overflow: hidden;
+            box-shadow: var(--shadow-sm); border: 1px solid rgba(0,0,0,0.05);
+            transition: 0.3s; display: flex; flex-direction: column;
+        }
+        .offer-card:hover { box-shadow: var(--shadow-lg); }
+        .offer-header {
+            background: var(--primary); padding: 20px; color: white; text-align: center;
+        }
+        .offer-header h3 { color: white; margin: 0; font-size: 1.5rem; }
+        .offer-body { padding: 30px; flex-grow: 1; }
+        .offer-list li { margin-bottom: 12px; display: flex; align-items: center; gap: 10px; }
+        .offer-list i { color: var(--gold); }
+        .offer-price { font-size: 1.8rem; color: var(--primary); font-weight: 700; margin-bottom: 20px; display: block; }
+        
+        /* --- FAQ Accordion --- */
+        .accordion { max-width: 800px; margin: 0 auto; }
+        .accordion-item {
+            background: var(--bg-white); border-radius: 8px; margin-bottom: 15px;
+            box-shadow: var(--shadow-sm); overflow: hidden;
+        }
+        .accordion-header {
+            padding: 20px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-weight: 600;
+        }
+        .accordion-header:hover { background: #f9f9f9; }
+        .accordion-content {
+            max-height: 0; overflow: hidden; transition: max-height 0.3s ease;
+            padding: 0 20px; color: var(--text-gray);
+        }
+        .accordion-content p { padding-bottom: 20px; }
+
+        /* --- CTA Banner --- */
+        .cta-banner {
+            background: var(--primary); color: white; text-align: center;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+        .cta-banner h2 { color: white; }
+        .cta-banner p { color: rgba(255,255,255,0.9); max-width: 600px; margin: 0 auto 30px; }
+
+        /* --- Footer --- */
+        footer { background: #1a1a1a; color: #888; padding: 60px 0 20px; font-size: 0.9rem; }
+        .footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 40px; margin-bottom: 40px; }
+        .footer-logo { color: white; font-size: 1.5rem; font-family: 'Playfair Display'; margin-bottom: 20px; display: block; }
+        .footer-links a { display: block; color: #888; margin-bottom: 10px; }
+        .footer-links a:hover { color: var(--gold); }
+        .social-links a { color: white; font-size: 1.2rem; margin-right: 15px; }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .hero { background: var(--bg-light); text-align: center; }
+            .hero-grid, .about-grid, .pain-grid, .video-section-grid { grid-template-columns: 1fr; gap: 40px; }
+            .hero-subtitle { border-left: none; padding-left: 0; }
+            .hero-image-container { max-width: 500px; margin: 0 auto; }
+            .nav-links { display: none; } /* Simplified mobile menu */
+            .mobile-menu-btn { display: block; }
+            .stats-bar { justify-content: center; }
+            .footer-grid { grid-template-columns: 1fr; text-align: center; }
+            .nav-socials { display: none; } /* Hide social icons in header on mobile to save space */
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav>
+        <div class="container nav-inner">
+            <a href="#" class="logo">
+                <i class="fa-solid fa-spa" style="color: var(--gold);"></i> Divine Healing
+            </a>
+            <div class="nav-links">
+                <a href="#about">About</a>
+                <a href="#services">Services</a>
+                <a href="#testimonials">Testimonials</a>
+                <a href="#faq">FAQ</a>
+                
+                <!-- Added Social Icons to Navbar -->
+                <div class="nav-socials">
+                    <a href="https://youtube.com/@prachivvreikimaster888" target="_blank" title="YouTube"><i class="fa-brands fa-youtube"></i></a>
+                    <a href="https://instagram.com/prachivvreikimaster888" target="_blank" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                </div>
+
+                <a href="https://wa.me/919137543969" class="btn btn-primary" style="padding: 10px 25px;">Book Now</a>
             </div>
-            <div className="flex flex-col">
-              <h1 className="text-xl md:text-2xl font-serif font-bold text-slate-800 tracking-tight leading-none group-hover:text-purple-700 transition-colors">
-                Divine Healing
-              </h1>
-              <span className="text-xs font-medium text-purple-600 tracking-[0.2em] uppercase mt-1">
-                By Prachi
-              </span>
-            </div>
-          </div>
-
-          {/* Desktop Navigation - Clean Typography */}
-          <div className="hidden lg:flex items-center gap-10">
-            <a href="#about" className="text-sm font-semibold uppercase tracking-wider text-slate-500 hover:text-purple-700 transition-colors relative after:content-[''] after:absolute after:w-0 after:h-0.5 after:bg-purple-600 after:left-0 after:-bottom-1 after:transition-all hover:after:w-full">
-              About
-            </a>
-            <a href="#courses" className="text-sm font-semibold uppercase tracking-wider text-slate-500 hover:text-purple-700 transition-colors relative after:content-[''] after:absolute after:w-0 after:h-0.5 after:bg-purple-600 after:left-0 after:-bottom-1 after:transition-all hover:after:w-full">
-              Courses
-            </a>
-            <a href="#contact" className="text-sm font-semibold uppercase tracking-wider text-slate-500 hover:text-purple-700 transition-colors relative after:content-[''] after:absolute after:w-0 after:h-0.5 after:bg-purple-600 after:left-0 after:-bottom-1 after:transition-all hover:after:w-full">
-              Contact
-            </a>
-            <a 
-              href={whatsappLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-purple-700 hover:bg-purple-800 text-white px-8 py-3 rounded-full transition-all shadow-lg hover:shadow-purple-200 transform hover:-translate-y-0.5 flex items-center gap-2 text-sm font-semibold tracking-wide"
-            >
-              <MessageCircle size={18} /> Book Session
-            </a>
-          </div>
-
-          {/* Mobile Menu Button */}
-          <button onClick={toggleMenu} className="lg:hidden text-slate-800 hover:text-purple-700 transition-colors p-2">
-            {isMenuOpen ? <X size={32} /> : <Menu size={32} />}
-          </button>
+            <div class="mobile-menu-btn"><i class="fa-solid fa-bars"></i></div>
         </div>
+    </nav>
 
-        {/* Mobile Dropdown - Full Screen Overlay feel */}
-        {isMenuOpen && (
-          <div className="lg:hidden bg-white border-t border-slate-100 absolute w-full shadow-2xl animate-fade-in-down">
-            <div className="flex flex-col p-6 space-y-6 text-center">
-              <a href="#about" onClick={toggleMenu} className="text-lg font-serif text-slate-800 hover:text-purple-600">About Reiki</a>
-              <a href="#courses" onClick={toggleMenu} className="text-lg font-serif text-slate-800 hover:text-purple-600">Courses</a>
-              <a href="#contact" onClick={toggleMenu} className="text-lg font-serif text-slate-800 hover:text-purple-600">Contact</a>
-              <a href={whatsappLink} className="bg-green-600 text-white py-4 rounded-xl flex justify-center items-center gap-2 shadow-lg active:scale-95 transition-transform">
-                <MessageCircle size={22} /> Chat on WhatsApp
-              </a>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container hero-grid">
+            <div class="hero-text">
+                <h1>Heal Yourself. <br><span class="highlight-gold">Heal the World.</span></h1>
+                <p class="hero-subtitle">
+                    Unlock your inner power with Reiki. Join a community dedicated to balance, peace, and divine universal energy.
+                </p>
+                <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+                    <a href="https://wa.me/919137543969?text=I%20am%20interested%20in%20a%20session" class="btn btn-gold">
+                        Book a Session
+                    </a>
+                    <a href="#about" class="btn" style="border: 2px solid var(--text-dark); color: var(--text-dark);">
+                        Meet Prachi
+                    </a>
+                </div>
+                
+                <div class="stats-bar">
+                    <div class="stat-item">
+                        <h4>500+</h4>
+                        <span>Students</span>
+                    </div>
+                    <div class="stat-item">
+                        <h4>5+</h4>
+                        <span>Years Exp</span>
+                    </div>
+                    <div class="stat-item">
+                        <h4>100%</h4>
+                        <span>Divine Energy</span>
+                    </div>
+                </div>
             </div>
-          </div>
-        )}
-      </nav>
-
-      {/* Hero Section - Balanced Composition */}
-      <header className="relative pt-40 pb-24 lg:pt-52 lg:pb-40 px-6 overflow-hidden bg-gradient-to-b from-purple-50 via-white to-stone-50">
-        {/* Organic Background Shapes */}
-        <div className="absolute top-0 right-0 -mr-32 -mt-32 w-[500px] h-[500px] bg-purple-100 rounded-full blur-[100px] opacity-60 z-0 animate-pulse-slow"></div>
-        <div className="absolute bottom-0 left-0 -ml-32 -mb-32 w-[400px] h-[400px] bg-yellow-100 rounded-full blur-[80px] opacity-60 z-0"></div>
-
-        <div className="container mx-auto text-center relative z-10 max-w-5xl">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-purple-100 shadow-sm mb-8 animate-fade-in-up">
-            <Sparkles className="w-4 h-4 text-yellow-500" />
-            <span className="text-xs font-bold tracking-widest text-purple-800 uppercase">Welcome to Divine Healing</span>
-          </div>
-          
-          <h1 className="text-5xl md:text-7xl font-serif font-bold text-slate-900 mb-8 leading-[1.1] tracking-tight">
-            Heal Yourself. Heal Others.<br />
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-indigo-600 italic font-medium pr-2">
-              Heal the World.
-            </span>
-          </h1>
-          
-          <p className="text-lg md:text-2xl text-slate-500 max-w-3xl mx-auto mb-12 leading-relaxed font-light">
-            Reconnect with the <span className="font-semibold text-slate-700">universal life force</span>. Awaken your inner awareness and create harmony, peace, and wellbeing in your everyday life.
-          </p>
-          
-          <div className="flex flex-col sm:flex-row justify-center gap-5">
-            <a 
-              href={whatsappLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-green-600 hover:bg-green-700 text-white text-lg px-10 py-4 rounded-full shadow-xl hover:shadow-2xl hover:shadow-green-200 transition-all transform hover:-translate-y-1 flex items-center justify-center gap-3 font-medium"
-            >
-              <MessageCircle className="w-6 h-6" /> 
-              Start Your Journey
-            </a>
-            <a 
-              href="#courses"
-              className="bg-white hover:bg-gray-50 text-slate-700 border border-slate-200 text-lg px-10 py-4 rounded-full shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1 font-medium"
-            >
-              View Courses
-            </a>
-          </div>
-        </div>
-      </header>
-
-      {/* About Section - Asymmetrical Layout for Interest */}
-      <section id="about" className="py-24 bg-white relative">
-        <div className="container mx-auto px-6 md:px-12">
-          <div className="flex flex-col md:flex-row items-center gap-16 lg:gap-24">
             
-            <div className="md:w-1/2 relative">
-              <div className="absolute inset-0 bg-gradient-to-br from-purple-200 to-indigo-200 rounded-[2rem] transform rotate-3 scale-95 opacity-50 blur-sm"></div>
-              <div className="relative bg-stone-50 rounded-[2rem] p-12 shadow-2xl border border-white flex flex-col items-center justify-center aspect-square md:aspect-[4/5] overflow-hidden">
-                   <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-purple-500 to-indigo-500"></div>
-                   <Sun className="w-24 h-24 text-purple-400 mb-6 opacity-80" />
-                   <h3 className="font-serif text-3xl text-slate-800 mb-2 text-center">Reiki</h3>
-                   <p className="text-purple-600 uppercase tracking-widest text-sm font-bold">Universal Life Energy</p>
-              </div>
+            <div class="hero-image-container">
+                <div class="hero-pattern"></div>
+                <!-- PHOTO CODE START -->
+                <img src="prachi%20photo.jpg" alt="Prachi Vijayvargiya Reiki Master" class="hero-image" onerror="this.onerror=null; this.src='https://placehold.co/500x600/eee/999?text=Prachi+Photo';">
+                <!-- PHOTO CODE END -->
             </div>
-
-            <div className="md:w-1/2 space-y-8">
-              <div className="inline-block border-l-4 border-purple-500 pl-4">
-                <h2 className="text-4xl lg:text-5xl font-serif font-bold text-slate-900 leading-tight">
-                  Restore Balance <br/>
-                  <span className="text-purple-600">& Inner Peace</span>
-                </h2>
-              </div>
-              
-              <p className="text-lg text-slate-600 leading-loose">
-                Reiki is a gentle yet powerful healing modality that works on the body, mind, emotions, and soul. It helps restore balance, remove energy blockages, reduce stress, and promote deep inner healing.
-              </p>
-              
-              <p className="text-lg text-slate-600 leading-loose">
-                It is not a religion and requires no special belief—only an open heart. Anyone can learn to become a channel of healing for themselves and others.
-              </p>
-              
-              <div className="pt-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {[
-                  "Remove Energy Blockages", 
-                  "Reduce Stress & Anxiety", 
-                  "Emotional Healing", 
-                  "Spiritual Growth"
-                ].map((item, i) => (
-                  <div key={i} className="flex items-center gap-3 text-slate-700 font-medium bg-purple-50 p-3 rounded-lg">
-                    <Heart className="w-5 h-5 text-purple-500 fill-current" />
-                    <span>{item}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-          </div>
         </div>
-      </section>
+    </section>
 
-      {/* Courses Section - Grid Layout with Card Design */}
-      <section id="courses" className="py-24 bg-stone-50">
-        <div className="container mx-auto px-6 md:px-12">
-          <div className="text-center mb-20 max-w-3xl mx-auto">
-            <h2 className="text-4xl lg:text-5xl font-serif font-bold text-slate-900 mb-6">Learning Path</h2>
-            <div className="w-24 h-1 bg-purple-500 mx-auto rounded-full mb-6"></div>
-            <p className="text-xl text-slate-500 leading-relaxed">
-              From beginner to Master Teacher, our structured curriculum ensures a deep and authentic connection to the lineage of Reiki.
-            </p>
-          </div>
+    <!-- Pain Points (The "Why") -->
+    <section class="section-padding bg-white">
+        <div class="container">
+            <div class="text-center" style="max-width: 700px; margin: 0 auto;">
+                <h2>Is Your Energy <span class="highlight-gold">Blocked?</span></h2>
+                <p>Life’s stress can disconnect us from our true selves. Do you recognize these signs?</p>
+            </div>
+            
+            <div class="pain-grid">
+                <div class="pain-card">
+                    <i class="fa-solid fa-brain pain-icon"></i>
+                    <h3>Mental Stress</h3>
+                    <p>Overthinking, anxiety, and a cluttered mind preventing you from finding peace.</p>
+                </div>
+                <div class="pain-card">
+                    <i class="fa-solid fa-heart-crack pain-icon"></i>
+                    <h3>Emotional Imbalance</h3>
+                    <p>Feeling drained, emotionally unstable, or disconnected from your relationships.</p>
+                </div>
+                <div class="pain-card">
+                    <i class="fa-solid fa-bed pain-icon"></i>
+                    <h3>Physical Fatigue</h3>
+                    <p>Unexplained tiredness and lack of vitality in your day-to-day life.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {courses.map((course, index) => (
-              <div key={index} className="group bg-white p-8 rounded-2xl shadow-sm hover:shadow-2xl transition-all duration-300 border border-slate-100 hover:border-purple-100 relative overflow-hidden">
-                <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-                  <Star className="w-24 h-24 text-purple-900 transform rotate-12" />
+    <!-- Latest Wisdom / Video Section -->
+    <section class="section-padding bg-section">
+        <div class="container">
+            <div class="video-section-grid">
+                <div class="video-text">
+                    <h4 style="color: var(--gold); text-transform: uppercase; letter-spacing: 2px;">Latest Wisdom</h4>
+                    <h2>Experience the Energy</h2>
+                    <p>Watch Prachi explain the transformative power of energy healing. In this short video, learn a quick tip to instantly ground yourself and reconnect with the universal flow.</p>
+                    <p>Subscribe to our YouTube channel for regular insights, guided meditations, and healing techniques.</p>
+                    <a href="https://youtube.com/@prachivvreikimaster888" target="_blank" class="btn btn-primary" style="margin-top: 20px;">
+                        <i class="fa-brands fa-youtube" style="margin-right: 10px;"></i> Subscribe Channel
+                    </a>
                 </div>
-                
-                <div className="w-14 h-14 bg-purple-100 rounded-2xl flex items-center justify-center mb-8 group-hover:bg-purple-600 transition-colors duration-300">
-                  <BookOpen className="text-purple-600 w-7 h-7 group-hover:text-white transition-colors" />
+                <div class="video-container">
+                    <!-- YouTube Short Embed -->
+                    <iframe src="https://www.youtube.com/embed/tcwzhycUgQU" title="Divine Healing by Prachi" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Authority / About Section -->
+    <section id="about" class="section-padding bg-white">
+        <div class="container about-grid">
+            <div class="about-image-wrapper">
+                <!-- PHOTO CODE START -->
+                <img src="prachi%20photo.jpg" alt="Prachi Vijayvargiya" class="about-img" onerror="this.onerror=null; this.src='https://placehold.co/500x600/eee/999?text=Prachi+Photo';">
+                <!-- PHOTO CODE END -->
+            </div>
+            <div class="about-content">
+                <h4 style="color: var(--gold); text-transform: uppercase; letter-spacing: 2px; font-size: 0.9rem;">Your Guide</h4>
+                <h2>Meet Prachi Vijayvargiya</h2>
+                <p>Welcome to the beautiful journey of Reiki. I am a certified Reiki Master dedicated to helping you channel the divine universal life energy.</p>
+                <p>Reiki is not just a practice; it is a gentle yet powerful modality that works on the body, mind, emotions, and soul. It requires no special belief—only an open heart and willingness to receive.</p>
+                <p>My mission is to help you restore balance, remove energy blockages, and awaken your inner awareness.</p>
                 
-                <h3 className="text-2xl font-serif font-bold text-slate-800 mb-2">{course.level}</h3>
-                <h4 className="text-purple-700 font-bold uppercase text-xs tracking-wider mb-4">{course.title}</h4>
-                <p className="text-slate-600 leading-relaxed mb-6">{course.desc}</p>
-                
-                <a href={whatsappLink} className="inline-flex items-center text-purple-700 font-bold hover:text-purple-900 transition-colors">
-                  Learn more <ChevronRight size={16} className="ml-1" />
+                <a href="https://www.instagram.com/prachivvreikimaster888" target="_blank" style="display: inline-flex; align-items: center; gap: 10px; color: var(--primary); font-weight: 700; margin-top: 10px;">
+                    <i class="fa-brands fa-instagram"></i> Follow My Journey
                 </a>
-              </div>
-            ))}
+            </div>
+        </div>
+    </section>
+
+    <!-- Services / Offerings -->
+    <section id="services" class="section-padding bg-section">
+        <div class="container">
+            <div class="text-center" style="margin-bottom: 50px;">
+                <h2>Start Your <span class="highlight-gold">Transformation</span></h2>
+                <p>Choose the path that calls to you.</p>
+            </div>
+
+            <div class="offer-grid">
+                <!-- Service 1 -->
+                <div class="offer-card">
+                    <div class="offer-header">
+                        <h3>Healing Sessions</h3>
+                        <span style="font-size: 0.9rem; opacity: 0.9;">1-on-1 Therapy</span>
+                    </div>
+                    <div class="offer-body">
+                        <span class="offer-price">Personalized</span>
+                        <p>Experience deep relaxation and energetic realignment.</p>
+                        <ul class="offer-list">
+                            <li><i class="fa-solid fa-circle-check"></i> Chakra Balancing</li>
+                            <li><i class="fa-solid fa-circle-check"></i> Stress Reduction</li>
+                            <li><i class="fa-solid fa-circle-check"></i> Distance Healing Available</li>
+                        </ul>
+                        <a href="https://wa.me/919137543969?text=I%20am%20interested%20in%20Healing%20Sessions" class="btn btn-primary" style="width: 100%; margin-top: 20px;">Book Session</a>
+                    </div>
+                </div>
+
+                <!-- Service 2 -->
+                <div class="offer-card" style="border: 2px solid var(--gold); transform: scale(1.02);">
+                    <div class="offer-header" style="background: var(--gold);">
+                        <h3>Reiki Learning</h3>
+                        <span style="font-size: 0.9rem; opacity: 0.9;">Become a Healer</span>
+                    </div>
+                    <div class="offer-body">
+                        <span class="offer-price">Levels 1-5</span>
+                        <p>Learn to channel divine energy for yourself and others.</p>
+                        <ul class="offer-list">
+                            <li><i class="fa-solid fa-circle-check"></i> Level 1: Self Healing</li>
+                            <li><i class="fa-solid fa-circle-check"></i> Level 2: Distance Healing</li>
+                            <li><i class="fa-solid fa-circle-check"></i> Master Levels & Attunement</li>
+                        </ul>
+                        <a href="https://wa.me/919137543969?text=I%20am%20interested%20in%20Learning%20Reiki" class="btn btn-gold" style="width: 100%; margin-top: 20px;">Join Course</a>
+                    </div>
+                </div>
+
+                <!-- Service 3 -->
+                <div class="offer-card">
+                    <div class="offer-header">
+                        <h3>Crystal Healing</h3>
+                        <span style="font-size: 0.9rem; opacity: 0.9;">Vibrational Therapy</span>
+                    </div>
+                    <div class="offer-body">
+                        <span class="offer-price">Add-On</span>
+                        <p>Amplify your healing process with crystals.</p>
+                        <ul class="offer-list">
+                            <li><i class="fa-solid fa-circle-check"></i> Aura Cleansing</li>
+                            <li><i class="fa-solid fa-circle-check"></i> Crystal Grids</li>
+                            <li><i class="fa-solid fa-circle-check"></i> Vibration Alignment</li>
+                        </ul>
+                        <a href="https://wa.me/919137543969?text=I%20am%20interested%20in%20Crystal%20Healing" class="btn btn-primary" style="width: 100%; margin-top: 20px;">Inquire Now</a>
+                    </div>
+                </div>
+
+                <!-- Service 2 -->
+                <div class="offer-card" style="border: 2px solid var(--gold); transform: scale(1.02);">
+                    <div class="offer-header" style="background: var(--gold);">
+                        <h3>Reiki Learning</h3>
+                        <span style="font-size: 0.9rem; opacity: 0.9;">Become a Healer</span>
+                    </div>
+                    <div class="offer-body">
+                        <span class="offer-price">Levels 1-5</span>
+                        <p>Learn to channel divine energy for yourself and others.</p>
+                        <ul class="offer-list">
+                            <li><i class="fa-solid fa-circle-check"></i> Level 1: Self Healing</li>
+                            <li><i class="fa-solid fa-circle-check"></i> Level 2: Distance Healing</li>
+                            <li><i class="fa-solid fa-circle-check"></i> Master Levels & Attunement</li>
+                        </ul>
+                        <a href="https://wa.me/919571814474?text=I%20am%20interested%20in%20Learning%20Reiki" class="btn btn-gold" style="width: 100%; margin-top: 20px;">Join Course</a>
+                    </div>
+                </div>
+
+                <!-- Service 3 -->
+                <div class="offer-card">
+                    <div class="offer-header">
+                        <h3>Crystal Healing</h3>
+                        <span style="font-size: 0.9rem; opacity: 0.9;">Vibrational Therapy</span>
+                    </div>
+                    <div class="offer-body">
+                        <span class="offer-price">Add-On</span>
+                        <p>Amplify your healing process with crystals.</p>
+                        <ul class="offer-list">
+                            <li><i class="fa-solid fa-circle-check"></i> Aura Cleansing</li>
+                            <li><i class="fa-solid fa-circle-check"></i> Crystal Grids</li>
+                            <li><i class="fa-solid fa-circle-check"></i> Vibration Alignment</li>
+                        </ul>
+                        <a href="https://wa.me/919571814474?text=I%20am%20interested%20in%20Crystal%20Healing" class="btn btn-primary" style="width: 100%; margin-top: 20px;">Inquire Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="section-padding bg-white">
+        <div class="container">
+            <div class="text-center" style="margin-bottom: 40px;">
+                <h2>Frequently Asked Questions</h2>
+            </div>
             
-            {/* CTA Card - Distinctive Design */}
-            <div className="bg-gradient-to-br from-purple-800 to-indigo-900 p-8 rounded-2xl shadow-xl flex flex-col items-center justify-center text-center text-white relative overflow-hidden">
-              <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10"></div>
-              <Leaf className="w-12 h-12 mb-6 text-yellow-400" />
-              <h3 className="text-2xl font-serif font-bold mb-3">Begin Your Practice</h3>
-              <p className="text-purple-200 mb-8 leading-relaxed">Classes are available online and offline. Schedule a consultation to find the right level for you.</p>
-              <a 
-                href={whatsappLink}
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="bg-white text-purple-900 px-8 py-3 rounded-full font-bold hover:bg-yellow-50 transition-colors shadow-lg w-full md:w-auto"
-              >
-                Inquire Now
-              </a>
+            <div class="accordion">
+                <div class="accordion-item">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        What is Reiki? <i class="fa-solid fa-chevron-down"></i>
+                    </div>
+                    <div class="accordion-content">
+                        <p>Reiki is a Japanese technique for stress reduction and relaxation that also promotes healing. It is administered by "laying on hands" and is based on the idea that an unseen "life force energy" flows through us.</p>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        Is Reiki a religion? <i class="fa-solid fa-chevron-down"></i>
+                    </div>
+                    <div class="accordion-content">
+                        <p>No, Reiki is not a religion. It has no dogma, and there is nothing you must believe in order to learn and use Reiki. In fact, Reiki is not dependent on belief at all and will work whether you believe in it or not.</p>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        Can I learn Reiki online? <i class="fa-solid fa-chevron-down"></i>
+                    </div>
+                    <div class="accordion-content">
+                        <p>Yes! We offer distance attunements and online classes for all levels. Energy is not bound by space or time.</p>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-      </section>
+    </section>
 
-      {/* Social Proof - Minimalist */}
-      <section className="py-24 bg-white border-t border-slate-100">
-        <div className="container mx-auto px-6 text-center">
-          <h2 className="text-3xl font-serif font-bold mb-12 text-slate-900">Join Our Community</h2>
-          <div className="flex flex-col md:flex-row justify-center gap-8 max-w-4xl mx-auto">
-            <a 
-              href={youtubeLink}
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="flex-1 group flex items-center gap-5 p-6 border border-slate-200 rounded-2xl hover:border-red-500 hover:shadow-xl hover:shadow-red-50 transition-all cursor-pointer bg-slate-50 hover:bg-white"
-            >
-              <div className="bg-white p-4 rounded-full shadow-sm group-hover:bg-red-500 transition-colors">
-                <Youtube className="text-red-600 w-8 h-8 group-hover:text-white transition-colors" />
-              </div>
-              <div className="text-left">
-                <h3 className="font-bold text-lg text-slate-800 group-hover:text-red-600 transition-colors">YouTube Channel</h3>
-                <p className="text-sm text-slate-500">Subscribe for guided healing</p>
-              </div>
+    <!-- Final CTA -->
+    <section class="section-padding cta-banner">
+        <div class="container">
+            <h2>Ready to Awaken Your Inner Light?</h2>
+            <p>Join hundreds of others who have transformed their lives through Divine Healing.</p>
+            <a href="https://wa.me/919137543969" class="btn" style="background: white; color: var(--primary);">
+                Start Your Journey Now
             </a>
-
-            <a 
-              href={instagramLink}
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="flex-1 group flex items-center gap-5 p-6 border border-slate-200 rounded-2xl hover:border-pink-500 hover:shadow-xl hover:shadow-pink-50 transition-all cursor-pointer bg-slate-50 hover:bg-white"
-            >
-              <div className="bg-white p-4 rounded-full shadow-sm group-hover:bg-pink-500 transition-colors">
-                <Instagram className="text-pink-600 w-8 h-8 group-hover:text-white transition-colors" />
-              </div>
-              <div className="text-left">
-                <h3 className="font-bold text-lg text-slate-800 group-hover:text-pink-600 transition-colors">Instagram</h3>
-                <p className="text-sm text-slate-500">Daily inspiration & updates</p>
-              </div>
-            </a>
-          </div>
         </div>
-      </section>
+    </section>
 
-      {/* Footer - Dark Theme for grounding */}
-      <footer id="contact" className="bg-slate-900 text-slate-300 pt-24 pb-12">
-        <div className="container mx-auto px-6 md:px-12">
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16 border-b border-slate-800 pb-12">
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <span class="footer-logo">Divine Healing</span>
+                    <p>Heal yourself. Heal others. Heal the world. Your journey to spiritual awakening starts here.</p>
+                    <div class="social-links" style="margin-top: 20px;">
+                        <a href="https://youtube.com/@prachivvreikimaster888"><i class="fa-brands fa-youtube"></i></a>
+                        <a href="https://instagram.com/prachivvreikimaster888"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="mailto:prachivijay26@gmail.com"><i class="fa-solid fa-envelope"></i></a>
+                    </div>
+                </div>
+                <div>
+                    <h4 style="color: white; font-size: 1.1rem; margin-bottom: 20px;">Quick Links</h4>
+                    <div class="footer-links">
+                        <a href="#about">About Prachi</a>
+                        <a href="#services">Reiki Courses</a>
+                        <a href="#services">Healing Sessions</a>
+                        <a href="#faq">FAQ</a>
+                    </div>
+                </div>
+                <div>
+                    <h4 style="color: white; font-size: 1.1rem; margin-bottom: 20px;">Contact</h4>
+                    <div class="footer-links">
+                        <a href="tel:+919137543969">+91 9137543969</a>
+                        <a href="mailto:prachivijay26@gmail.com">prachivijay26@gmail.com</a>
+                        <span>Online & In-Person Sessions</span>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center" style="border-top: 1px solid #333; padding-top: 20px;">
+                <p>&copy; 2024 Divine Healing by Prachi. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Fixed WhatsApp Button -->
+    <a href="https://wa.me/919137543969" class="btn-whatsapp-fixed" target="_blank">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+
+    <!-- JavaScript -->
+    <script>
+        function toggleAccordion(header) {
+            const content = header.nextElementSibling;
+            const icon = header.querySelector('i');
             
-            {/* Brand */}
-            <div className="lg:col-span-1">
-              <div className="flex items-center gap-3 mb-6">
-                 {/* Footer Logo */}
-                 {logoError ? (
-                  <Sun className="text-yellow-500 w-8 h-8" />
-                ) : (
-                  <img 
-                    src="divine healing by prachi logo.jpg" 
-                    alt="Divine Healing Logo" 
-                    className="w-10 h-10 rounded-full object-cover border-2 border-slate-700"
-                    onError={() => setLogoError(true)}
-                  />
-                )}
-                <h2 className="text-xl font-serif font-bold text-white">Divine Healing</h2>
-              </div>
-              <p className="text-sm leading-relaxed text-slate-400">
-                Empowering souls to find their inner light through the ancient wisdom of Reiki.
-              </p>
-            </div>
+            // Close other items
+            document.querySelectorAll('.accordion-content').forEach(item => {
+                if (item !== content) {
+                    item.style.maxHeight = null;
+                    item.previousElementSibling.querySelector('i').classList.remove('fa-chevron-up');
+                    item.previousElementSibling.querySelector('i').classList.add('fa-chevron-down');
+                }
+            });
 
-            {/* Links */}
-            <div>
-              <h3 className="text-white font-bold mb-6 tracking-wide">Explore</h3>
-              <ul className="space-y-3 text-sm">
-                <li><a href="#about" className="hover:text-purple-400 transition-colors">About Us</a></li>
-                <li><a href="#courses" className="hover:text-purple-400 transition-colors">Courses</a></li>
-                <li><a href={youtubeLink} className="hover:text-purple-400 transition-colors">Videos</a></li>
-              </ul>
-            </div>
-
-            {/* Contact */}
-            <div>
-              <h3 className="text-white font-bold mb-6 tracking-wide">Contact</h3>
-              <ul className="space-y-4 text-sm">
-                <li>
-                  <a href={`tel:+919137543969`} className="flex items-center gap-3 hover:text-white transition-colors">
-                    <Phone size={16} className="text-purple-500" /> +91 91375 43969
-                  </a>
-                </li>
-                <li>
-                  <a href={emailLink} className="flex items-center gap-3 hover:text-white transition-colors">
-                    <Mail size={16} className="text-purple-500" /> prachivijay26@gmail.com
-                  </a>
-                </li>
-              </ul>
-            </div>
-
-             {/* CTA */}
-             <div>
-              <h3 className="text-white font-bold mb-6 tracking-wide">Book Now</h3>
-              <a 
-                href={whatsappLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex w-full items-center justify-center gap-2 bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg transition-colors font-medium"
-              >
-                <MessageCircle size={18} />
-                WhatsApp Chat
-              </a>
-            </div>
-
-          </div>
-
-          <div className="flex flex-col md:flex-row justify-between items-center text-xs text-slate-500">
-            <p>&copy; {new Date().getFullYear()} Divine Healing by Prachi. All rights reserved.</p>
-            <div className="flex gap-4 mt-4 md:mt-0">
-              <a href="#" className="hover:text-slate-300 transition-colors">Privacy Policy</a>
-              <a href="#" className="hover:text-slate-300 transition-colors">Terms of Service</a>
-            </div>
-          </div>
-        </div>
-      </footer>
-
-    </div>
-  );
-};
-
-export default App;
+            if (content.style.maxHeight) {
+                content.style.maxHeight = null;
+                icon.classList.remove('fa-chevron-up');
+                icon.classList.add('fa-chevron-down');
+            } else {
+                content.style.maxHeight = content.scrollHeight + "px";
+                icon.classList.remove('fa-chevron-down');
+                icon.classList.add('fa-chevron-up');
+            }
+        }
+    </script>
+</body>
+</html>
